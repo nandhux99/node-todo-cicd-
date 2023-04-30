@@ -1,7 +1,18 @@
-version: '3.9'
-
 services:
-  web:
-    image: trainwithshubham/node-todo-app-cicd:latest
+  node_todo_cicd:
+    container_name: "node-todo-app"
+    build: .
     ports:
-      - "8000:8000"
+      - 8000:8000
+    volumes:
+      - node_todo_volume:/app
+  mysql_db:
+    container_name: "node-mysql-db"
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test@123
+    ports:
+      - "3306:3306"
+volumes:
+  node_todo_volume:
